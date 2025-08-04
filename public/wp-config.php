@@ -48,7 +48,10 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 }
 
 // Set the home url to the current domain.
-define('WP_HOME', env('WP_HOME', Request::createFromGlobals()->getSchemeAndHttpHost()));
+$request = Request::createFromGlobals();
+$protocol = $request->isSecure() ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+define('WP_HOME', env('WP_HOME', $protocol . '://' . $host));
 
 // Set the WordPress directory path.
 define('WP_SITEURL', env('WP_SITEURL', sprintf('%s/%s', WP_HOME, env('WP_DIR', 'wordpress'))));

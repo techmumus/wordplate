@@ -13,3 +13,5 @@
 /public/wordpress
 /vendor
 auth.json
+.DS_Store
+Thumbs.db
